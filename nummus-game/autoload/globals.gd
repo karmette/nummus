@@ -36,6 +36,8 @@ var success_weight: float = 0
 var max_purse:int = 10
 var max_hand:int = 5
 
+var max_mint_size:int = 5
+
 #actions
 var queued_actions: Array[Callable] = []
 var is_busy: bool 

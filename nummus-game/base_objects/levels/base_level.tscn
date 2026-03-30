@@ -33,8 +33,9 @@ transform = Transform3D(-4.4581025e-08, -0.28287718, 0.95915616, 2.9486855e-09, 
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 16.928263, 0)
-light_energy = 0.816
+light_color = Color(0.65850645, 0.53359276, 0.16306353, 1)
+light_energy = 0.831
 light_indirect_energy = 4.516
-spot_range = 20.419
-spot_attenuation = -0.59
-spot_angle = 46.98
+spot_range = 17.611183
+spot_attenuation = -1.19
+spot_angle = 62.15

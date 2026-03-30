@@ -46,7 +46,6 @@ func on_wheel_ran():
 	update_wheel(Globals.head_weight, Globals.tail_weight)
 	await get_tree().create_timer(0.5).timeout
 	
-	RecursiveEffect.run_weight_effects()
 	await RecursiveEffect.run_weight_effects()
 	
 	Globals.action_finished()
