@@ -3,6 +3,7 @@ extends Node
 var effects: Dictionary[Callable, int]
 
 var weight_effects: Array[Object] = []
+var mint_effects: Array[Object] = []
 var weight_modifiers: Array[Object] = []
 
 func add_recurring_effect(function: Callable, period_length: int):

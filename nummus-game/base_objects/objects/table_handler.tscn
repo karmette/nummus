@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwu8pi66hpjiu"]
+[gd_scene load_steps=9 format=3 uid="uid://dwu8pi66hpjiu"]
 
 [ext_resource type="Script" uid="uid://dace5j0sr7fyi" path="res://base_objects/objects/table_handler.gd" id="1_x0v6v"]
 [ext_resource type="ArrayMesh" uid="uid://df0dli0p2ydry" path="res://assets/3d/coin_table.obj" id="2_86dke"]
 [ext_resource type="PackedScene" uid="uid://dipstebap2rep" path="res://base_objects/objects/purse.tscn" id="3_axdkv"]
 [ext_resource type="PackedScene" uid="uid://omrtjvkuy0go" path="res://base_objects/viewports/inventory_patch.tscn" id="4_4xn1l"]
 [ext_resource type="Script" uid="uid://dlxivaf2jpg1w" path="res://base_objects/objects/count_ui.gd" id="5_20odo"]
+[ext_resource type="ArrayMesh" uid="uid://cs6t7877o1v70" path="res://assets/3d/mintBase.mtl.obj" id="6_ectpa"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4xn1l"]
 viewport_path = NodePath("PurseDiscard/DiscardUI/SubViewport")
@@ -16,12 +17,13 @@ viewport_path = NodePath("PurseInv/InventoryUI/SubViewport")
 script = ExtResource("1_x0v6v")
 
 [node name="Markers" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5424514, 0, 0)
 
 [node name="EndpointL" type="Marker3D" parent="Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.88029665, 4.49, 4, 6.16)
+transform = Transform3D(0.009445727, 0, 0, 0, 1, 0, 0, 0, 0.88029665, 0, 4, 6.16)
 
 [node name="EndpointR" type="Marker3D" parent="Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.88029665, 4.49, 4, -6.16)
+transform = Transform3D(0.009445727, 0, 0, 0, 1, 0, 0, 0, 0.88029665, 0, 4, -6.16)
 
 [node name="TableModel" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_86dke")
@@ -72,3 +74,7 @@ text = "99"
 font_size = 82
 outline_size = 32
 script = ExtResource("5_20odo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.748387, 4.217295, 8.919345)
+mesh = ExtResource("6_ectpa")
