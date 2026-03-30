@@ -85,7 +85,7 @@ func init_anim():
 	position_markers["not_floating"] = Vector3(0, 0, 0)
 	position_markers["floating"] = Vector3(0, 0.4, 0)
 	position_markers["global_init"] = tween_pos
-	position_markers["playing"] = Vector3(1.5, 4, 0)
+	position_markers["playing"] = Vector3(2.3, 4, 0)
 
 
 func parse_json() -> void:

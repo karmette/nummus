@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func check_spacing(hand_size: int):
 	var positions: Array[Vector3] = []
-	if hand_size == 1:
+	if hand_size == 1 and false:
 		positions.append(Vector3(endpoint_r.position))
 		Signalbus.return_spacing.emit(positions)
 		return
