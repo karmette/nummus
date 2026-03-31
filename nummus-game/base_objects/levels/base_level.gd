@@ -2,6 +2,8 @@ extends Node3D
 
 var flipping_history: PackedInt32Array = []
 
+var amount_skipped: int = 0
+
 func _ready() -> void:
 	Inventory.fire_game()
 	#Inventory.spawn_hand()

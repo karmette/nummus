@@ -28,6 +28,7 @@ var position_markers: Dictionary[String, Vector3] # 0 is initial, 1 is floating
 var is_mouse_over: bool = false
 @export var current_coin: bool = false
 
+var current_level
 
 func _ready():
 	
@@ -58,6 +59,8 @@ func _ready():
 	set_state_transforms()
 	parse_json()
 	area.show()
+	
+	current_level = get_parent()
 
 
 func set_state_transforms() -> void:
@@ -158,6 +161,7 @@ func flip(state: int): # the side you clicked
 		GuiManager.toggle_coin_flip_ui.emit(false)
 		
 		if state == Sides.SKIP:
+			current_level.amount_skipped += 1
 			Globals.queue_action(discard_me)
 			return
 			

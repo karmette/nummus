@@ -31,6 +31,10 @@ const COINS: Dictionary = {
 	#"healthy":"",
 }
 
+const MINTS: Dictionary = {
+	"heads": "uid://brersfpkjb5bw"
+}
+
 const JSON_PATHS: Dictionary = {
 	"coins":"res://assets/resource_json/coins.json",
 	"dialogue":"res://assets/resource_json/dialogue.json",

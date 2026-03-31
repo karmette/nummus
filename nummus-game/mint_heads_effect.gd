@@ -1,4 +1,7 @@
-extends Node
+class_name MintHeads extends Mint
 
-func effect():
-	CommonEffects.favor_heads(.1)
+func _init():
+	super(.1)
+
+func run_effect():
+	CommonEffects.WeightModifier.favor_heads(value)

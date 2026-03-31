@@ -17,7 +17,7 @@ viewport_path = NodePath("PurseInv/InventoryUI/SubViewport")
 script = ExtResource("1_x0v6v")
 
 [node name="Markers" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5424514, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2012467, 0, 0)
 
 [node name="EndpointL" type="Marker3D" parent="Markers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4.754347)
