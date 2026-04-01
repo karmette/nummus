@@ -27,6 +27,7 @@ func draw_coin():
 	
 	var new_coin: Coin = Inventory.current_inv.pick_random()
 	new_coin.current_state = Constants.DisplayType.PLAY
+	new_coin.global_position = Vector3(2.044,4.0,-8.368)
 	SceneManager.current_scene.add_child.call_deferred(new_coin)
 	current_inv.remove_at(current_inv.find(new_coin))
 	current_hand.append(new_coin)
@@ -54,7 +55,7 @@ func new_hand():
 	for i in range(Globals.max_hand): # Ideally, remove from inventory into hand!
 		var new_coin: Coin = Inventory.current_inv.pick_random()
 		new_coin.current_state = Constants.DisplayType.PLAY
-		
+		new_coin.global_position = Vector3(2.044,4.0,-8.368)
 		SceneManager.current_scene.add_child.call_deferred(new_coin)
 		current_inv.remove_at(current_inv.find(new_coin))
 		current_hand.append(new_coin)
@@ -62,7 +63,7 @@ func new_hand():
 		current_hand_size = i + 1
 		
 		Signalbus.refresh_spacing.emit(current_hand_size)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(.1).timeout
 		
 		GuiManager.update_inventory_patch.emit("Inventory")
 		GuiManager.update_inventory_patch.emit("Discard")
@@ -113,7 +114,7 @@ func discard_coin():
 	GuiManager.update_inventory_patch.emit("Inventory")
 	GuiManager.update_inventory_patch.emit("Discard")
 
-func set_current_coin(coin: Coin) -> bool:
+func set_current_coin(coin: Coin) -> bool: #sets what coin is in play
 	if current_coin == null:
 		current_coin = coin
 		current_hand.remove_at(current_hand.find(current_coin))
@@ -131,7 +132,3 @@ func delete_current_coin():
 	current_hand.append(current_coin)
 	Signalbus.refresh_spacing.emit(current_hand.size())
 	current_coin = null
-
-#func _process(_delta: float) -> void:
-	#if current_coin == null and current_hand.size() == 0 : # wow I added a process func! how inefficient oh well lol!!
-		#new_hand()

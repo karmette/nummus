@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dipstebap2rep" path="res://base_objects/objects/purse.tscn" id="3_axdkv"]
 [ext_resource type="PackedScene" uid="uid://omrtjvkuy0go" path="res://base_objects/viewports/inventory_patch.tscn" id="4_4xn1l"]
 [ext_resource type="Script" uid="uid://dlxivaf2jpg1w" path="res://base_objects/objects/count_ui.gd" id="5_20odo"]
-[ext_resource type="ArrayMesh" uid="uid://cs6t7877o1v70" path="res://assets/3d/mintBase.mtl.obj" id="6_ectpa"]
+[ext_resource type="ArrayMesh" uid="uid://dl6b4frk68lmh" path="res://assets/3d/mintBase.obj" id="6_ectpa"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4xn1l"]
 viewport_path = NodePath("PurseDiscard/DiscardUI/SubViewport")
