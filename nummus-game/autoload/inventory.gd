@@ -55,14 +55,14 @@ func new_hand():
 	for i in range(Globals.max_hand): # Ideally, remove from inventory into hand!
 		var new_coin: Coin = Inventory.current_inv.pick_random()
 		new_coin.current_state = Constants.DisplayType.PLAY
-		new_coin.global_position = Vector3(2.044,4.0,-8.368)
 		SceneManager.current_scene.add_child.call_deferred(new_coin)
+		new_coin.position = Vector3(2.044,4.0,-8.368)
 		current_inv.remove_at(current_inv.find(new_coin))
 		current_hand.append(new_coin)
 		
 		current_hand_size = i + 1
 		
-		Signalbus.refresh_spacing.emit(current_hand_size)
+		Signalbus.refresh_spacing.emit(current_hand_size, true)
 		await get_tree().create_timer(.1).timeout
 		
 		GuiManager.update_inventory_patch.emit("Inventory")
