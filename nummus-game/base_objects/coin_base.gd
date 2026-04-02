@@ -41,7 +41,6 @@ func _ready():
 	# signals
 	Signalbus.coin_flipped.connect(flip)
 	Inventory.replace_current_coin.connect(replace_me)
-	Signalbus.positions_ready.connect(_tween_pos)
 	#Signalbus.fly_out.connect(_fly_out)
 
 	# instance of coin resources
@@ -69,7 +68,6 @@ func set_state_transforms() -> void:
 		scale = Vector3(1,1,1) # because shop
 		rotation = Vector3(0, 0, 0)
 		hoverable.visible = true
-		_tween_pos(false) # goes to hand
 		init_anim() # really useless code/function
 	elif current_state == Constants.DisplayType.SHOP:
 		scale = Vector3(0.3, 0.3, 0.3)
@@ -81,7 +79,6 @@ func set_state_transforms() -> void:
 
 
 func _tween_pos(is_curved):
-	await get_tree().process_frame #prevents coins from bugging out weird ITS NEEDED TRUST ME
 	print(is_curved)
 	if is_curved:
 		var center_point = position.lerp(tween_pos, 0.5) + Vector3(0, 5, 0)
