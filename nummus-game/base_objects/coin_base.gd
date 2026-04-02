@@ -69,7 +69,7 @@ func set_state_transforms() -> void:
 		scale = Vector3(1,1,1) # because shop
 		rotation = Vector3(0, 0, 0)
 		hoverable.visible = true
-		_tween_pos() # goes to hand
+		_tween_pos(false) # goes to hand
 		init_anim() # really useless code/function
 	elif current_state == Constants.DisplayType.SHOP:
 		scale = Vector3(0.3, 0.3, 0.3)
@@ -80,8 +80,15 @@ func set_state_transforms() -> void:
 		hoverable.visible = false
 
 
-func _tween_pos():
-	tween_me(self, tween_pos, 0.1)
+func _tween_pos(is_curved):
+	await get_tree().process_frame #prevents coins from bugging out weird ITS NEEDED TRUST ME
+	print(is_curved)
+	if is_curved:
+		var center_point = position.lerp(tween_pos, 0.5) + Vector3(0, 5, 0)
+		tween_me(self, tween_pos, 0.1, center_point)
+	else:
+		#print("This shouldnt happen")
+		tween_me(self, tween_pos, 0.1)
 
 
 func init_anim():
@@ -254,10 +261,27 @@ func _on_area_3d_mouse_exited() -> void:
 	
 
 
-func tween_me(sprite: Node3D, pos: Vector3, time):
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(sprite, "position", pos, time)
+#func tween_me(sprite: Node3D, pos: Vector3, time):
+	#var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
+	#tween.tween_property(sprite, "position", pos, time)
 
+func tween_me(sprite: Node3D, end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO):
+	if sprite.position.is_equal_approx(end):
+		return
+	#uses the objects current position by default
+	if start == Vector3.ZERO: #uses the objects current position by default
+		start = sprite.position
+	if control == Vector3.ZERO: #if no centerpoint is given, object travels in a straight line
+		control = start.lerp(end, 0.5)
+		
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_method(
+		func(t: float):
+			var a = start.lerp(control, t)
+			var b = control.lerp(end, t)
+			sprite.position = a.lerp(b, t),
+		0.0, 1.0, time
+	)
 
 func replace_me():
 	if current_coin:

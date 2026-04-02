@@ -61,7 +61,6 @@ func new_hand():
 		current_hand.append(new_coin)
 		
 		current_hand_size = i + 1
-		
 		Signalbus.refresh_spacing.emit(current_hand_size, true)
 		await get_tree().create_timer(.1).timeout
 		
@@ -88,7 +87,7 @@ func add_item(item: Coin) -> bool:
 	else:
 		return false
 
-func set_spacing(positions: Array[Vector3]):
+func set_spacing(positions: Array[Vector3], is_curved: bool):
 	# They SHOULD be the same
 	if positions.size() == 0:
 		# print("Ran out of coins, attempting to get new hand")
@@ -97,7 +96,7 @@ func set_spacing(positions: Array[Vector3]):
 
 	for i in min(current_hand.size(), positions.size()):
 		current_hand[i].tween_pos = positions[i]
-	Signalbus.positions_ready.emit()
+	Signalbus.positions_ready.emit(is_curved)
 
 func remove_item(item: Coin) -> bool:
 	if inventory.find(item) != -1:

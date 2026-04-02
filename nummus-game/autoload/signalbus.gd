@@ -41,11 +41,11 @@ signal increase_period(inc: int)
 @warning_ignore("unused_signal")
 signal decrease_period(amount: int)
 @warning_ignore("unused_signal")
-signal refresh_spacing(hand: int)
+signal refresh_spacing(hand: int, is_new_hand: bool)
 @warning_ignore("unused_signal")
-signal return_spacing(spaces: Array[Vector3])
+signal return_spacing(spaces: Array[Vector3], is_curved: bool)
 @warning_ignore("unused_signal")
-signal positions_ready
+signal positions_ready(curved: bool)
 
 signal actions_finished
 # signal fly_out
