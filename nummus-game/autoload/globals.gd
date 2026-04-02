@@ -63,7 +63,7 @@ func try_run_next():
 func action_finished():
 	is_busy = false
 	queued_actions.pop_front()
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.1).timeout
 	try_run_next()
 		
 

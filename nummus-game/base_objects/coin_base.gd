@@ -21,7 +21,6 @@ var coin_price: int
 var period_increment: int
 
 var position_markers: Dictionary[String, Vector3] # 0 is initial, 1 is floating
-@export var tween_pos: Vector3
 
 # coin state
 @export var current_state: Constants.DisplayType
@@ -78,20 +77,18 @@ func set_state_transforms() -> void:
 		hoverable.visible = false
 
 
-func _tween_pos(is_curved):
-	print(is_curved)
+func tween_pos(desired_position: Vector3, is_curved: bool):
 	if is_curved:
-		var center_point = position.lerp(tween_pos, 0.5) + Vector3(0, 5, 0)
-		tween_me(self, tween_pos, 0.1, center_point)
+		var center_point = position.lerp(desired_position, 0.5) + Vector3(0, 5, 0)
+		tween_me(self, desired_position, 0.1, center_point)
 	else:
 		#print("This shouldnt happen")
-		tween_me(self, tween_pos, 0.1)
+		tween_me(self, desired_position, 0.1)
 
 
 func init_anim():
 	position_markers["not_floating"] = Vector3(0, 0, 0)
 	position_markers["floating"] = Vector3(0, 0.4, 0)
-	position_markers["global_init"] = tween_pos
 	position_markers["playing"] = Vector3(2.3, 4, 0)
 
 

@@ -13,12 +13,12 @@ func _ready() -> void:
 	Signalbus.calculate_coin_spacing.connect(calculate_spacing)
 
 func calculate_spacing(hand_size: int, is_new_hand: bool = true):
+	#calculates coin positions and gives them back to inventory
 	var positions: Array[Vector3] = []
 	if hand_size == 0:
 		print("No coins to place!")
 		return
 	
-	print(hand_size)
 	if is_new_hand: #equally spaces coins according to max hand size
 		increment = (abs(endpoint_l.position.z) + abs(endpoint_r.position.z))/(Globals.max_hand - 1)
 		for i in range(Globals.max_hand):
@@ -32,4 +32,4 @@ func calculate_spacing(hand_size: int, is_new_hand: bool = true):
 		for i in range(hand_size):
 			positions.append(endpoint_l.global_position - Vector3(0,0,increment*i))
 	
-	Inventory.set_coin_spacing(positions, is_new_hand)
+	Inventory.coin_positions = positions
