@@ -62,3 +62,7 @@ func _deferred_add_scene(path):
 
 func add_scene(path):
 	_deferred_add_scene.call_deferred(path)
+	
+func refresh_purse_ui():
+	update_inventory_patch.emit("Inventory")
+	update_inventory_patch.emit("Discard")

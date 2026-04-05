@@ -5,6 +5,7 @@ extends Node
 var discard: Array[Coin]
 var current_inv: Array[Coin] = []
 var current_hand: Array[Coin] = []
+
 @export var coin_positions: Array[Vector3] = []
 
 signal inventory_changed()
@@ -12,8 +13,13 @@ signal replace_current_coin()
 
 var current_coin: Coin
 
+#allows purse locations to be accessed directly for coin tweening
+var purse_discard: Node = null #initialized from purse discard node
+var purse_inv: Node = null #initialized from purse discard node
+
 func _ready() -> void:
 	pass
+	
 
 func reset_inv():
 	current_inv.clear()
@@ -40,8 +46,7 @@ func draw_coin():
 		else:
 			current_hand[i].tween_pos(coin_positions[i], false)
 	
-	GuiManager.update_inventory_patch.emit("Inventory")
-	GuiManager.update_inventory_patch.emit("Discard")
+	GuiManager.refresh_purse_ui()
 	Globals.action_finished()
 	
 	
@@ -53,15 +58,13 @@ func refill_current_inv_from_discard():
 		
 		await get_tree().create_timer(0.1).timeout
 		
-		GuiManager.update_inventory_patch.emit("Inventory")
-		GuiManager.update_inventory_patch.emit("Discard")
+		GuiManager.refresh_purse_ui()
 	await get_tree().create_timer(0.5).timeout
 
 
 func new_hand():
 	await get_tree().create_timer(0.5).timeout #stylistic choice ong
-	
-	
+
 	for i in range(Globals.max_hand): # Ideally, remove from inventory into hand!
 		var new_coin: Coin = Inventory.current_inv.pick_random()
 		new_coin.current_state = Constants.DisplayType.PLAY
@@ -74,8 +77,7 @@ func new_hand():
 		
 		current_hand[i].tween_pos(coin_positions[i], true)
 		
-		GuiManager.update_inventory_patch.emit("Inventory")
-		GuiManager.update_inventory_patch.emit("Discard")
+		GuiManager.refresh_purse_ui()
 		await get_tree().create_timer(.1).timeout
 	Globals.action_finished()
 	#Signalbus.fly_out.emit()
@@ -85,8 +87,7 @@ func fire_game():
 	reset_inv()
 	for coin in inventory:
 		current_inv.append(coin.duplicate())
-	GuiManager.update_inventory_patch.emit("Inventory")
-	GuiManager.update_inventory_patch.emit("Discard")
+	GuiManager.refresh_purse_ui()
 	Globals.queue_action(new_hand)
 
 func add_item(item: Coin) -> bool:
@@ -111,20 +112,29 @@ func add_item(item: Coin) -> bool:
 		#current_hand[i].tween_pos(is_curved)
 		
 
-func remove_item(item: Coin) -> bool:
-	if inventory.find(item) != -1:
-		inventory.remove_at(inventory.find(item))
-		inventory_changed.emit()
-		return true
-	else:
-		return false
+#func remove_item(item: Coin) -> bool:
+	#if inventory.find(item) != -1:
+		#inventory.remove_at(inventory.find(item))
+		#inventory_changed.emit()
+		#return true
+	#else:
+		#return false
 
 func discard_coin():
+	GuiManager.toggle_chance_wheel.emit(false)
+	Globals.flipping = false
+	current_coin.current_coin = false
+	
+	await current_coin.tween_pos(purse_discard.position, true)
+	
+	await get_tree().create_timer(0.5).timeout
 	discard.append(current_coin.duplicate()) # needs to be visibly removed!
 	current_coin.queue_free()
+	Globals.action_finished()
+	
 	Globals.queue_action(draw_coin)
-	GuiManager.update_inventory_patch.emit("Inventory")
-	GuiManager.update_inventory_patch.emit("Discard")
+	GuiManager.refresh_purse_ui()
+	
 
 func set_current_coin(coin: Coin) -> bool: #sets what coin is in play
 	if current_coin == null:

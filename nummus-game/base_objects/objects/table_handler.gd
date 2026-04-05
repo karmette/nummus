@@ -5,12 +5,16 @@ class_name Table
 @onready var endpoint_l: Marker3D = $Markers/EndpointL
 @onready var endpoint_r: Marker3D = $Markers/EndpointR
 @onready var purse_inv: Node3D = $PurseInv
+@onready var purse_discard: Node3D = $PurseDiscard
 
 var increment: float
 var coin_spawnpoint: Vector3
 
 func _ready() -> void:
 	Signalbus.calculate_coin_spacing.connect(calculate_spacing)
+	
+	Inventory.purse_inv = purse_inv
+	Inventory.purse_discard = purse_discard
 
 func calculate_spacing(hand_size: int, is_new_hand: bool = true):
 	#calculates coin positions and gives them back to inventory

@@ -76,5 +76,5 @@ outline_size = 32
 script = ExtResource("5_20odo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5033417, 4.217295, 3.87462)
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.5033417, 5.531776, 3.87462)
 mesh = ExtResource("6_ectpa")

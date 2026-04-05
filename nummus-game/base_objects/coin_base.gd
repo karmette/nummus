@@ -72,19 +72,15 @@ func set_state_transforms() -> void:
 		scale = Vector3(0.3, 0.3, 0.3)
 		rotation = Vector3(0, 0, -PI / 2)
 		hoverable.visible = true
-	elif current_state == Constants.DisplayType.HAND: # unused state
-		rotation = Vector3(0, 0, 0)
-		hoverable.visible = false
-
 
 func tween_pos(desired_position: Vector3, is_curved: bool):
 	if is_curved:
-		var center_point = position.lerp(desired_position, 0.5) + Vector3(0, 5, 0)
-		tween_me(self, desired_position, 0.1, center_point)
+		var center_point = position.lerp(desired_position, 0.5) + Vector3(0, 7, 0)
+		tween_me(desired_position, 0.3, center_point)
 	else:
 		#print("This shouldnt happen")
-		tween_me(self, desired_position, 0.1)
-
+		tween_me(desired_position, 0.2)
+		
 
 func init_anim():
 	position_markers["not_floating"] = Vector3(0, 0, 0)
@@ -118,16 +114,16 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		"flip_tails_fail":
 			Globals.change_fortune(true, Globals.fortune_gain)
 			Globals.change_misfortune(true, Globals.misfortune_gain)
-		"discard":
-			Globals.flipping = false
-			return
-		"RESET":
-			Globals.queue_action(discard_me)
-			return
-
-	Globals.reset_weights()
 	
-	animation_player.play("RESET")
+	Signalbus.decrease_period.emit(period_increment)
+	
+	var enemy_anim = get_parent().get_node("Enemy").get_node("AnimationPlayer")
+	if enemy_anim.current_animation.find("idle") == -1:
+		await enemy_anim.animation_finished
+	
+	Globals.queue_action(Inventory.discard_coin)
+		
+	Globals.reset_weights()
 	Globals.action_finished()
 
 
@@ -163,7 +159,7 @@ func flip(state: int): # the side you clicked
 		
 		if state == Sides.SKIP:
 			current_level.amount_skipped += 1
-			Globals.queue_action(discard_me)
+			Globals.queue_action(Inventory.discard_coin)
 			return
 			
 		coin_effect.pre_effect(coin_stats)
@@ -227,10 +223,14 @@ func _on_area_3d_mouse_entered() -> void:
 			await Signalbus.actions_finished
 			
 		if is_mouse_over: #so the coin hovers back up instantly after unlocking input
-			tween_me(coin_mesh, position_markers.get("floating"), 0.1)
+			tween_me(position_markers.get("floating"), 0.1, Vector3(0,0,0), Vector3(0,0,0), coin_mesh)
 			toggle_visible(true)
 	
-
+func _on_area_3d_mouse_exited() -> void:
+	is_mouse_over = false
+	toggle_visible(false)
+	if current_state == Constants.DisplayType.PLAY:
+		tween_me(position_markers.get("not_floating"), 0.2, Vector3(0,0,0), Vector3(0,0,0), coin_mesh)
 
 func _input(event: InputEvent) -> void:
 	if is_mouse_over and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and not Globals.input_locked:
@@ -239,27 +239,16 @@ func _input(event: InputEvent) -> void:
 		if current_state == Constants.DisplayType.PLAY and Globals.flipping == false:
 			if not current_coin:
 				current_coin = Inventory.set_current_coin(self)
-				if current_coin:
-					tween_me(self, position_markers.get("playing"), 0.2)
+				tween_me(position_markers.get("playing"), 0.2)
 			elif current_coin:
-				#tween_me(self, tween_pos, 0.2)
 				current_coin = false
 				Inventory.delete_current_coin()
-
-
-func _on_area_3d_mouse_exited() -> void:
-	is_mouse_over = false
-	toggle_visible(false)
-	if current_state == Constants.DisplayType.PLAY:
-		tween_me(coin_mesh, position_markers.get("not_floating"), 0.2)
-	
-
 
 #func tween_me(sprite: Node3D, pos: Vector3, time):
 	#var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	#tween.tween_property(sprite, "position", pos, time)
 
-func tween_me(sprite: Node3D, end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO):
+func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO, sprite: Node3D = self):
 	if sprite.position.is_equal_approx(end):
 		return
 	#uses the objects current position by default
@@ -291,19 +280,9 @@ func buy_me():
 	else:
 		print("you broke lol")
 
+		
+		
 
-func discard_me():
-	print("Hello, im %s and I just discarded" % self.name)
-	if current_coin:
-		var enemy_anim = get_parent().get_node("Enemy").get_node("AnimationPlayer")
-		if enemy_anim.current_animation.find("idle") == -1:
-			await enemy_anim.animation_finished
-		current_coin = false;
-		animation_player.play("discard")
-		await animation_player.animation_finished
-		GuiManager.toggle_chance_wheel.emit(false)
-		Signalbus.decrease_period.emit(period_increment)
-		Inventory.discard_coin()
-		Globals.action_finished()
-		
-		
+
+func _on_flip_finished(anim_name: StringName) -> void:
+	pass # Replace with function body.
