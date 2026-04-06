@@ -1,5 +1,5 @@
 @abstract
-class_name Mint
+class_name Mint extends Node3D
 
 var period_length: int = -1
 var value

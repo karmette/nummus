@@ -102,7 +102,7 @@ func parse_json() -> void:
 			hoverable.description.text = json_object.data.get(coin).get("description") + generate_description(coin_stats)
 
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_flip_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"flip_heads_success":
 			coin_effect.effect(coin_stats, Sides.HEADS)
@@ -266,6 +266,7 @@ func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, s
 		0.0, 1.0, time
 	)
 
+
 func replace_me():
 	if current_coin:
 		#tween_me(self, tween_pos, 0.2)
@@ -282,7 +283,3 @@ func buy_me():
 
 		
 		
-
-
-func _on_flip_finished(anim_name: StringName) -> void:
-	pass # Replace with function body.
