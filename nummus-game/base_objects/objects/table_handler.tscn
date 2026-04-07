@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dipstebap2rep" path="res://base_objects/objects/purse.tscn" id="3_axdkv"]
 [ext_resource type="PackedScene" uid="uid://omrtjvkuy0go" path="res://base_objects/viewports/inventory_patch.tscn" id="4_4xn1l"]
 [ext_resource type="Script" uid="uid://dlxivaf2jpg1w" path="res://base_objects/objects/count_ui.gd" id="5_20odo"]
-[ext_resource type="ArrayMesh" uid="uid://bhbp25cpb0evu" path="res://assets/3d/mint_base.obj" id="6_ectpa"]
+[ext_resource type="PackedScene" uid="uid://qmwg3w7gj4vw" path="res://base_objects/mint_base.tscn" id="6_ectpa"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4xn1l"]
 viewport_path = NodePath("PurseDiscard/DiscardUI/SubViewport")
@@ -75,6 +75,5 @@ font_size = 82
 outline_size = 32
 script = ExtResource("5_20odo")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5033417, 4.3628206, 3.87462)
-mesh = ExtResource("6_ectpa")
+[node name="MintBase" parent="." instance=ExtResource("6_ectpa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.033443, 3.8008723)

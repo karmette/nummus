@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://qmwg3w7gj4vw"]
+
+[ext_resource type="Script" uid="uid://bbca7y5ankn8v" path="res://base_objects/mint_base.gd" id="1_h5nwk"]
+[ext_resource type="ArrayMesh" uid="uid://bhbp25cpb0evu" path="res://assets/3d/mint_base.obj" id="2_duin0"]
+[ext_resource type="Texture2D" uid="uid://hsgt5pb1o8lo" path="res://resources/mints/mint_test.png" id="4_pxrmn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_734kc"]
+albedo_texture = ExtResource("4_pxrmn")
+texture_filter = 0
+
+[node name="MintBase" type="Node3D"]
+script = ExtResource("1_h5nwk")
+
+[node name="MintMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_duin0")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_734kc")

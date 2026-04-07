@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://3nddafo22hjr" path="res://base_objects/coin_base.gd" id="1_3p7bc"]
 [ext_resource type="Resource" uid="uid://d35ga8hv2jlvh" path="res://resources/coins/coin_base.tres" id="2_ern4t"]
-[ext_resource type="Texture2D" uid="uid://chjocgt1hmv02" path="res://assets/2d/mapped_coin_textures/1787.png" id="3_ern4t"]
 [ext_resource type="PackedScene" uid="uid://btm435kprguv0" path="res://base_objects/viewports/hoverable.tscn" id="4_2xdfg"]
 [ext_resource type="ArrayMesh" uid="uid://4pyjuonats8g" path="res://assets/3d/coin_base.obj" id="4_ern4t"]
+[ext_resource type="Texture2D" uid="uid://d08lfhwjrrml3" path="res://assets/2d/mapped_coin_textures/base.png" id="4_tiqga"]
 
 [sub_resource type="Animation" id="Animation_ldnf3"]
 length = 0.001
@@ -595,10 +595,11 @@ _data = {
 &"flip_tails_success": SubResource("Animation_p7sxt")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nyihw"]
-shading_mode = 0
-disable_ambient_light = true
-albedo_texture = ExtResource("3_ern4t")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ern4t"]
+albedo_texture = ExtResource("4_tiqga")
+emission = Color(0.101960786, 0.30980393, 0.0627451, 1)
+emission_energy_multiplier = 3.15
+texture_filter = 0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e84nm"]
 height = 0.4
@@ -674,7 +675,7 @@ libraries = {
 
 [node name="CoinMesh" type="MeshInstance3D" parent="."]
 layers = 2
-material_override = SubResource("StandardMaterial3D_nyihw")
+material_override = SubResource("StandardMaterial3D_ern4t")
 mesh = ExtResource("4_ern4t")
 metadata/_edit_lock_ = true
 

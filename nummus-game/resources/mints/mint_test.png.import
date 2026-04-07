@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d08lfhwjrrml3"
-path="res://.godot/imported/base.png-156a611bd203adb128e20cdff6c57779.ctex"
+uid="uid://hsgt5pb1o8lo"
+path="res://.godot/imported/mint_test.png-944fe247fba74ca9b9e4d09302c0232a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d/mapped_coin_textures/base.png"
-dest_files=["res://.godot/imported/base.png-156a611bd203adb128e20cdff6c57779.ctex"]
+source_file="res://resources/mints/mint_test.png"
+dest_files=["res://.godot/imported/mint_test.png-944fe247fba74ca9b9e4d09302c0232a.ctex"]
 
 [params]
 
