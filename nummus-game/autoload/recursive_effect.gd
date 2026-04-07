@@ -23,7 +23,7 @@ func run_weight_effects():
 		GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		await get_tree().create_timer(0.5).timeout
 		
-	MintHandler.run_mint_effects()
+	Inventory.run_mint_effects()
 	GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 	await get_tree().create_timer(0.5).timeout
 		

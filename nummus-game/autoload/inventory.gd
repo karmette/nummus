@@ -5,6 +5,7 @@ extends Node
 var discard: Array[Coin]
 var current_inv: Array[Coin] = []
 var current_hand: Array[Coin] = []
+var mints: Array[Object] = []
 
 @export var coin_positions: Array[Vector3] = []
 
@@ -18,7 +19,8 @@ var purse_discard: Node = null #initialized from purse discard node
 var purse_inv: Node = null #initialized from purse discard node
 
 func _ready() -> void:
-	pass
+	mints.resize(Globals.max_mint_size)
+	add_mint(Constants.MINTS["heads"])
 	
 
 func reset_inv():
@@ -166,3 +168,15 @@ func delete_current_coin():
 			current_hand[i].tween_pos(coin_positions[i], false)
 			
 	current_coin = null
+
+func add_mint(uid: String):
+	for i in range(mints.size()):
+		if mints[i] == null:
+			var mint = load(uid).new()
+			mints[i] = mint
+			return
+
+func run_mint_effects():
+	for mint in mints:
+		if mint != null:
+			mint.run_effect()

@@ -25,6 +25,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4.754347)
 [node name="EndpointR" type="Marker3D" parent="Markers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -4.754347)
 
+[node name="MintMarkers" type="Node3D" parent="."]
+
+[node name="EndpointL" type="Marker3D" parent="MintMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3.907692)
+
+[node name="Marker3D" type="Marker3D" parent="MintMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3.908)
+
 [node name="TableModel" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_86dke")
 
@@ -76,4 +84,4 @@ outline_size = 32
 script = ExtResource("5_20odo")
 
 [node name="MintBase" parent="." instance=ExtResource("6_ectpa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.033443, 3.8008723)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2626495, 3.8008723)
