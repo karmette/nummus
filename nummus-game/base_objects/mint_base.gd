@@ -2,6 +2,9 @@ extends Node3D
 
 class_name Mint 
 
+# children
+@onready var mint_mesh: MeshInstance3D = $MintMesh
+
 var period_length: int = -1
 var value
 
@@ -9,10 +12,16 @@ var value
 @onready var mint_effect: RefCounted
 	
 func _ready():
+	#initialize texture
+	mint_mesh.material_override = StandardMaterial3D.new()
+	mint_mesh.material_override.albedo_texture = mint_id.mint_texture
+	mint_mesh.material_override.texture_filter = 0
+
+	#initialize effect
 	mint_effect = mint_id.effect.new()
 
 func run_effect():
-	mint_effect.yes()
+	mint_effect.effect()
 
 func condition_met() -> bool: # coins without a condition will always run
 	return true

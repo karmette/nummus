@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MintStats" load_steps=4 format=3 uid="uid://ccbgug7ovonvw"]
+
+[ext_resource type="Script" uid="uid://5ut78ecdfk4k" path="res://resources/mints/mint_class.gd" id="1_8rgri"]
+[ext_resource type="Script" uid="uid://dwhsxq6kny6pj" path="res://resources/mints/mint_effects/mint_waggy_effect.gd" id="1_fni1p"]
+[ext_resource type="Texture2D" uid="uid://bhflsa3gnmk47" path="res://assets/2d/mapped_mint_textures/waggy.png" id="2_yo450"]
+
+[resource]
+script = ExtResource("1_8rgri")
+mint_texture = ExtResource("2_yo450")
+effect = ExtResource("1_fni1p")
+metadata/_custom_type_script = "uid://5ut78ecdfk4k"

@@ -8,9 +8,15 @@ class_name Table
 @onready var mint_endpoint_r: Marker3D = $MintMarkers/EndpointR
 @onready var purse_inv: Node3D = $PurseInv
 @onready var purse_discard: Node3D = $PurseDiscard
+@onready var current_coin_marker: Marker3D = $CurrentCoinMarker
 
 var increment: float
 var coin_spawnpoint: Vector3
+
+var mint_busy: bool = false
+var mint_movement_queue: Array[Mint] = []
+var mint_tween_duration: float = .4
+var mint_arc_height: Vector3 = Vector3(0,5,0)
 
 @export var mint_positions: Array[Vector3] = []
 
@@ -66,7 +72,35 @@ func spawn_coins():
 	calculate_mint_spacing()
 	for i in range(Inventory.mints.size()):
 		if Inventory.mints[i] != null:
-			print("it was spawned in dude")
 			SceneManager.current_scene.add_child.call_deferred(Inventory.mints[i])
 	reset_mint_positions()
-	print("yes this ran lol")
+	
+	await get_tree().create_timer(1).timeout 
+	
+	for i in range(Inventory.mints.size()):
+		if Inventory.mints[i] != null:
+			queue_mint_movement(Inventory.mints[i])
+
+func queue_mint_movement(obj: Mint):
+	mint_movement_queue.append(obj)
+	if not mint_busy:
+		move_next_mint()
+
+func move_next_mint():
+	if mint_movement_queue.is_empty():
+		mint_busy = false
+		return
+
+	mint_busy = true
+	var current_mint: Mint = mint_movement_queue.pop_front()
+	var home_position: Vector3 = current_mint.position
+	var center_arc_position = home_position.lerp(current_coin_marker.position, 0.5) + mint_arc_height
+	# Send to target
+	current_mint.tween_me(current_coin_marker.position, mint_tween_duration, center_arc_position)
+
+	get_tree().create_timer(mint_tween_duration).timeout.connect(func():
+		# Start return
+		current_mint.tween_me(home_position, mint_tween_duration, center_arc_position)
+		# Next object departs immediately as this one begins returning
+		move_next_mint()
+	)

@@ -20,6 +20,9 @@ var purse_inv: Node = null #initialized from purse discard node
 
 func _ready() -> void:
 	add_mint(Constants.MINTS.dizzy)
+	add_mint(Constants.MINTS.waggy)
+	add_mint(Constants.MINTS.dizzy)
+	add_mint(Constants.MINTS.waggy)
 	
 
 func reset_inv():

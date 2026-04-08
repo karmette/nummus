@@ -32,7 +32,8 @@ const COINS: Dictionary = {
 }
 
 const MINTS: Dictionary = {
-	"dizzy": "uid://8vb5jxkifsfu"
+	"dizzy": "uid://y5cnfhut51qb",
+	"waggy": "uid://ccbgug7ovonvw"
 }
 
 const JSON_PATHS: Dictionary = {

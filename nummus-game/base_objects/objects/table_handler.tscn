@@ -15,6 +15,9 @@ viewport_path = NodePath("PurseInv/InventoryUI/SubViewport")
 [node name="TableHandler" type="Node3D"]
 script = ExtResource("1_x0v6v")
 
+[node name="CurrentCoinMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2856302, 4, 0)
+
 [node name="Markers" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2012467, 0, 0)
 
@@ -25,12 +28,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4.754347)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -4.754347)
 
 [node name="MintMarkers" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9463897, 0, 0)
 
 [node name="EndpointL" type="Marker3D" parent="MintMarkers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3.907692)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 5.582137)
 
 [node name="EndpointR" type="Marker3D" parent="MintMarkers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3.908)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -5.582)
 
 [node name="TableModel" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_86dke")
