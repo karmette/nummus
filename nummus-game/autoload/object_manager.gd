@@ -2,6 +2,7 @@ extends Node
 
 @onready var enemy_base = ResourceLoader.load(Constants.SCENE_PATHS.base_enemy)
 @onready var coin_base = ResourceLoader.load(Constants.SCENE_PATHS.base_coin)
+@onready var mint_base: PackedScene = ResourceLoader.load(Constants.SCENE_PATHS.base_mint)
 var current_enemy: Enemy
 
 func create_coin(coin_path: String, state: Constants.DisplayType) -> Coin:
@@ -15,6 +16,13 @@ func spawn_base_enemy():
 	current_enemy = enemy_base.instantiate()
 	current_enemy.enemy_id = ResourceLoader.load("res://resources/enemies/smug_man.tres")
 	SceneManager.current_scene.add_child.call_deferred(current_enemy)
+
+func create_mint(mint_path: String, state: Constants.DisplayType):
+	var new_mint: Mint
+	new_mint = mint_base.instantiate() as Mint
+	var eeeooeoe = state #temporary
+	new_mint.mint_id = ResourceLoader.load(mint_path).duplicate(true)
+	return new_mint
 
 func parse_json(path: String) -> JSON:
 	# json parse

@@ -12,18 +12,22 @@ class_name Table
 var increment: float
 var coin_spawnpoint: Vector3
 
+@export var mint_positions: Array[Vector3] = []
+
 func _ready() -> void:
-	Signalbus.calculate_coin_spacing.connect(calculate_spacing)
+	Signalbus.calculate_coin_spacing.connect(calculate_coin_spacing)
 	
 	Inventory.purse_inv = purse_inv
 	Inventory.purse_discard = purse_discard
+	spawn_coins()
 
-func calculate_spacing(hand_size: int, is_new_hand: bool = true):
+func calculate_coin_spacing(hand_size: int, is_new_hand: bool = true):
 	#calculates coin positions and gives them back to inventory
-	var positions: Array[Vector3] = []
 	if hand_size == 0:
 		print("No coins to place!")
 		return
+
+	var positions: Array[Vector3] = []
 	
 	if is_new_hand: #equally spaces coins according to max hand size
 		increment = (abs(coin_endpoint_l.position.z) + abs(coin_endpoint_r.position.z))/(Globals.max_hand - 1)
@@ -39,3 +43,30 @@ func calculate_spacing(hand_size: int, is_new_hand: bool = true):
 			positions.append(coin_endpoint_l.global_position - Vector3(0,0,increment*i))
 	
 	Inventory.coin_positions = positions
+
+func calculate_mint_spacing():
+	if Inventory.mints.size() == 0:
+		print("No mints to place!")
+		return
+
+	var positions: Array[Vector3] = []
+
+	increment = (abs(mint_endpoint_l.position.z) + abs(mint_endpoint_r.position.z))/(Globals.max_hand - 1)
+	for i in range(Globals.max_mint_size):
+		positions.append(mint_endpoint_l.global_position - Vector3(0,0,increment*i))
+	
+	mint_positions = positions
+
+func reset_mint_positions():
+	for i in range(Inventory.mints.size()):
+		if Inventory.mints[i] != null:
+			Inventory.mints[i].position = mint_positions[i]
+
+func spawn_coins():
+	calculate_mint_spacing()
+	for i in range(Inventory.mints.size()):
+		if Inventory.mints[i] != null:
+			print("it was spawned in dude")
+			SceneManager.current_scene.add_child.call_deferred(Inventory.mints[i])
+	reset_mint_positions()
+	print("yes this ran lol")

@@ -33,8 +33,9 @@ var affect_player_success: bool = false
 var success_weight: float = 0
 
 # hand size
-var max_purse:int = 10
+var max_coin_inventory_size:int = 15
 var max_hand:int = 5
+
 
 var max_mint_size:int = 5
 

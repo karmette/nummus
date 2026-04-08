@@ -274,12 +274,14 @@ func replace_me():
 
 
 func buy_me():
-	if Globals.can_afford(coin_price):
-		Inventory.add_item(self.duplicate())
-		Globals.change_money(true, -coin_price)
-		self.queue_free()
+	if Inventory.inventory.size() <= Globals.max_coin_inventory_size:
+		if Globals.can_afford(coin_price):
+			Inventory.add_item(self.duplicate())
+			Globals.change_money(true, -coin_price)
+			self.queue_free()
+		else:
+			print("you broke lol")
 	else:
-		print("you broke lol")
-
+		print("inventory is full my guy")
 		
 		

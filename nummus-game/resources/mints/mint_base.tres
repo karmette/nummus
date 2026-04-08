@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="MintStats" load_steps=3 format=3 uid="uid://8vb5jxkifsfu"]
+[gd_resource type="Resource" script_class="MintStats" load_steps=4 format=3 uid="uid://8vb5jxkifsfu"]
 
+[ext_resource type="Script" uid="uid://brersfpkjb5bw" path="res://mint_dizzy_effect.gd" id="1_epvs8"]
 [ext_resource type="Script" uid="uid://5ut78ecdfk4k" path="res://resources/mints/mint_class.gd" id="1_sxuxm"]
 [ext_resource type="Texture2D" uid="uid://hsgt5pb1o8lo" path="res://resources/mints/mint_test.png" id="1_xo2rg"]
 
 [resource]
 script = ExtResource("1_sxuxm")
 mint_texture = ExtResource("1_xo2rg")
+effect = ExtResource("1_epvs8")
 metadata/_custom_type_script = "uid://5ut78ecdfk4k"

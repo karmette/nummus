@@ -19,8 +19,7 @@ var purse_discard: Node = null #initialized from purse discard node
 var purse_inv: Node = null #initialized from purse discard node
 
 func _ready() -> void:
-	mints.resize(Globals.max_mint_size)
-	add_mint(Constants.MINTS["heads"])
+	add_mint(Constants.MINTS.dizzy)
 	
 
 func reset_inv():
@@ -93,13 +92,9 @@ func fire_game():
 	Globals.queue_action(new_hand)
 
 func add_item(item: Coin) -> bool:
-	if inventory.size() <= 15:
-		inventory.append(item)
-		inventory_changed.emit()
-
-		return true
-	else:
-		return false
+	inventory.append(item)
+	inventory_changed.emit()
+	return true
 
 #func set_coin_spacing(positions: Array[Vector3], is_curved: bool):
 	## move coins to their requested positions
@@ -169,14 +164,19 @@ func delete_current_coin():
 			
 	current_coin = null
 
-func add_mint(uid: String):
-	for i in range(mints.size()):
-		if mints[i] == null:
-			var mint = load(uid).new()
-			mints[i] = mint
-			return
+func add_coin(coin_path: String) -> void:
+	var new_coin = ObjectManager.create_coin(coin_path, Constants.DisplayType.PLAY)
+	add_item(new_coin) #adds to coin inventory
+
+	current_inv.append(inventory[-1].duplicate()) #adds to bag
+	
+	GuiManager.update_inventory_icons.emit()
+	GuiManager.update_inventory_patch.emit("Inventory")
+
+func add_mint(mint_path: String) -> void:
+	var new_mint = ObjectManager.create_mint(mint_path, Constants.DisplayType.PLAY)
+	mints.append(new_mint)
 
 func run_mint_effects():
 	for mint in mints:
-		if mint != null:
-			mint.run_effect()
+		mint.run_effect()

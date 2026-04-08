@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwu8pi66hpjiu"]
+[gd_scene load_steps=8 format=3 uid="uid://dwu8pi66hpjiu"]
 
 [ext_resource type="Script" uid="uid://dace5j0sr7fyi" path="res://base_objects/objects/table_handler.gd" id="1_x0v6v"]
 [ext_resource type="ArrayMesh" uid="uid://df0dli0p2ydry" path="res://assets/3d/coin_table.obj" id="2_86dke"]
 [ext_resource type="PackedScene" uid="uid://dipstebap2rep" path="res://base_objects/objects/purse.tscn" id="3_axdkv"]
 [ext_resource type="PackedScene" uid="uid://omrtjvkuy0go" path="res://base_objects/viewports/inventory_patch.tscn" id="4_4xn1l"]
 [ext_resource type="Script" uid="uid://dlxivaf2jpg1w" path="res://base_objects/objects/count_ui.gd" id="5_20odo"]
-[ext_resource type="PackedScene" uid="uid://qmwg3w7gj4vw" path="res://base_objects/mint_base.tscn" id="6_ectpa"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4xn1l"]
 viewport_path = NodePath("PurseDiscard/DiscardUI/SubViewport")
@@ -30,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -4.754347)
 [node name="EndpointL" type="Marker3D" parent="MintMarkers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3.907692)
 
-[node name="Marker3D" type="Marker3D" parent="MintMarkers"]
+[node name="EndpointR" type="Marker3D" parent="MintMarkers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3.908)
 
 [node name="TableModel" type="MeshInstance3D" parent="."]
@@ -82,6 +81,3 @@ text = "99"
 font_size = 82
 outline_size = 32
 script = ExtResource("5_20odo")
-
-[node name="MintBase" parent="." instance=ExtResource("6_ectpa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2626495, 3.8008723)

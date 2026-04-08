@@ -5,14 +5,14 @@ class_name Mint
 var period_length: int = -1
 var value
 
-@export var coin_id: MintStats
-
-func _init(given_value, given_period_length: int = -1):
-	value = given_value
-	period_length = given_period_length
+@export var mint_id: MintStats
+@onready var mint_effect: RefCounted
+	
+func _ready():
+	mint_effect = mint_id.effect.new()
 
 func run_effect():
-	pass
+	mint_effect.yes()
 
 func condition_met() -> bool: # coins without a condition will always run
 	return true

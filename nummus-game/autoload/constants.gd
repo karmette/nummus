@@ -6,7 +6,7 @@ const SCENE_PATHS: Dictionary[String, String] = {
 	"base_enemy":"uid://d3tgw7j1mag6w",
 	"shop":"uid://smvg3nwqqw6x",
 	"speech_bubble": "uid://bov88m8v4wj43",
-
+	"base_mint": "uid://qmwg3w7gj4vw"
 }
 
 const UI_PATHS: Dictionary[String, String] = {
@@ -32,7 +32,7 @@ const COINS: Dictionary = {
 }
 
 const MINTS: Dictionary = {
-	"heads": "uid://brersfpkjb5bw"
+	"dizzy": "uid://8vb5jxkifsfu"
 }
 
 const JSON_PATHS: Dictionary = {
