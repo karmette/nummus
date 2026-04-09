@@ -26,7 +26,7 @@ func run_effect():
 func get_effect_type(): #returns effect class as a string
 	return mint_effect.effect.get_object().get_script().get_global_name()
 
-func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO, object: Mint = self):
+func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, tweened: bool = true, start: Vector3 = Vector3.ZERO, object: Mint = self):
 	if object.position.is_equal_approx(end):
 		return
 	#uses the objects current position by default
@@ -35,7 +35,9 @@ func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, s
 	if control == Vector3.ZERO: #if no centerpoint is given, object travels in a straight line
 		control = start.lerp(end, 0.5)
 		
-	var tween = object.create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	var tween = object.create_tween()
+	if tweened:
+		tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	
 	tween.tween_method(
 		func(t: float):

@@ -13,10 +13,12 @@ class_name Table
 var increment: float
 var coin_spawnpoint: Vector3
 
+#mint position data
 var mint_busy: bool = false
 var mint_movement_queue: Array[Mint] = []
-var mint_tween_duration: float = .3
-var mint_arc_height: Vector3 = Vector3(0,5,0)
+var mint_tween_duration: float = .2
+var mint_hover_height: Vector3 = Vector3(0,3,0)
+var mint_curve_back_height: Vector3 = Vector3(0,2,0)
 
 @export var mint_positions: Array[Vector3] = []
 
@@ -89,14 +91,17 @@ func move_next_mint():
 	mint_busy = true
 	var current_mint: Mint = mint_movement_queue.pop_front()
 	var home_position: Vector3 = current_mint.position
-	var center_arc_position = home_position.lerp(current_coin_marker.position, 0.5) + mint_arc_height
-	# Send to target
-	current_mint.tween_me(current_coin_marker.position, mint_tween_duration, center_arc_position)
+	var center_position = home_position.lerp(current_coin_marker.position, 0.5)
+	# places mint above coin
+	current_mint.tween_me(current_coin_marker.position + mint_hover_height, mint_tween_duration, center_position + mint_hover_height*1.25)
+	await get_tree().create_timer(mint_tween_duration + 0.05).timeout 
 
-	get_tree().create_timer(mint_tween_duration).timeout.connect(func():
-		Signalbus.coin_stamped.emit()
-		# Start return
-		current_mint.tween_me(home_position, mint_tween_duration, center_arc_position)
-		# Next object departs immediately as this one begins returning
-		move_next_mint()
-	)
+	#stamps down onto coin
+	current_mint.tween_me(current_coin_marker.position, 0.05, Vector3.ZERO, false)
+	Signalbus.coin_stamped.emit()
+	Signalbus.trigger_camera_shake.emit(.1, 10)
+	await get_tree().create_timer(.25).timeout
+	
+
+	current_mint.tween_me(home_position, mint_tween_duration, center_position + mint_curve_back_height)
+	move_next_mint()
