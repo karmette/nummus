@@ -1,4 +1,6 @@
 class_name EffectWaggy extends MintEffect
 
-func effect():
-	CommonEffects.WeightModifier.favor_tails(.1)
+func _init():
+	value = .1
+	effect_object = WeightModifier.new()
+	effect = Callable(effect_object, "favor_tails")

@@ -45,6 +45,8 @@ signal calculate_coin_spacing(hand: int, is_new_hand: bool)
 @warning_ignore("unused_signal")
 
 signal actions_finished
+@warning_ignore("unused_signal")
+signal coin_stamped #signals that a mint has stamped a coin
 # signal fly_out
 # signal flew_out
 

@@ -21,17 +21,10 @@ func _ready():
 	mint_effect = mint_id.effect.new()
 
 func run_effect():
-	mint_effect.effect()
+	mint_effect.try_run_effect()
 
-func condition_met() -> bool: # coins without a condition will always run
-	return true
-
-func try_run():
-	if condition_met():
-		run_effect()
-
-func force_run():
-	run_effect()
+func get_effect_type(): #returns effect class as a string
+	return mint_effect.effect.get_object().get_script().get_global_name()
 
 func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO, object: Mint = self):
 	if object.position.is_equal_approx(end):

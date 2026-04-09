@@ -5,6 +5,8 @@ var weight_effects: Array[Object] = []
 var mint_weight_effects: Array[Object] = []
 var weight_modifiers: Array[Object] = []
 
+var table_handler_node
+
 func add_recurring_effect(function: Callable, period_length: int):
 	if function.get_object() == CommonEffects.WeightModifier:
 		weight_effects.append(RecursiveEffectObject.new(function, period_length))
@@ -23,23 +25,27 @@ func run_weight_effects():
 		GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		await get_tree().create_timer(0.5).timeout
 		
-	Inventory.run_mint_effects()
-	GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
-	await get_tree().create_timer(0.5).timeout
+	for i in range(Inventory.mints.size()):
+		var current_mint = Inventory.mints[i]
+		if current_mint.get_effect_type() == "WeightModifier":
+			table_handler_node.queue_mint_movement(current_mint)
+			await Signalbus.coin_stamped
+			current_mint.run_effect()
+			GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		
 	if Globals.fortune_channeled:
 		Globals.use_fortune()
 		GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		await get_tree().create_timer(0.5).timeout
 
-func run_recurring_effect(stats: Dictionary, state: int):
-	for effect in weight_effects:
-		if effect.period_length == 0:
-			weight_effects.erase(effect)
-			continue
+# func run_recurring_effect(stats: Dictionary, state: int):
+# 	for effect in weight_effects:
+# 		if effect.period_length == 0:
+# 			weight_effects.erase(effect)
+# 			continue
 			
-		effect.period_length -= 1
-		effect.run()
+# 		effect.period_length -= 1
+# 		effect.run()
 	
 
 class RecursiveEffectObject:

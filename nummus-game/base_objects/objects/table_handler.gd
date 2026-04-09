@@ -22,7 +22,7 @@ var mint_arc_height: Vector3 = Vector3(0,5,0)
 
 func _ready() -> void:
 	Signalbus.calculate_coin_spacing.connect(calculate_coin_spacing)
-	
+	RecursiveEffect.table_handler_node = self
 	Inventory.purse_inv = purse_inv
 	Inventory.purse_discard = purse_discard
 	spawn_coins()
@@ -81,8 +81,8 @@ func spawn_coins():
 		if Inventory.mints[i] != null:
 			queue_mint_movement(Inventory.mints[i])
 
-func queue_mint_movement(obj: Mint):
-	mint_movement_queue.append(obj)
+func queue_mint_movement(mint: Mint):
+	mint_movement_queue.append(mint)
 	if not mint_busy:
 		move_next_mint()
 
@@ -99,6 +99,7 @@ func move_next_mint():
 	current_mint.tween_me(current_coin_marker.position, mint_tween_duration, center_arc_position)
 
 	get_tree().create_timer(mint_tween_duration).timeout.connect(func():
+		Signalbus.coin_stamped.emit()
 		# Start return
 		current_mint.tween_me(home_position, mint_tween_duration, center_arc_position)
 		# Next object departs immediately as this one begins returning

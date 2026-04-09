@@ -23,6 +23,7 @@ func _ready() -> void:
 	add_mint(Constants.MINTS.waggy)
 	add_mint(Constants.MINTS.dizzy)
 	add_mint(Constants.MINTS.waggy)
+	add_mint(Constants.MINTS.dizzy)
 	
 
 func reset_inv():
