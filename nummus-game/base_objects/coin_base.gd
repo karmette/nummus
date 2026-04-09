@@ -78,7 +78,6 @@ func tween_pos(desired_position: Vector3, is_curved: bool):
 		var center_point = position.lerp(desired_position, 0.5) + Vector3(0, 7, 0)
 		tween_me(desired_position, 0.4, center_point, 2)
 	else:
-		#print("This shouldnt happen")
 		tween_me(desired_position, 0.2)
 		
 
