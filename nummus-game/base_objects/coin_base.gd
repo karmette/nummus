@@ -76,7 +76,7 @@ func set_state_transforms() -> void:
 func tween_pos(desired_position: Vector3, is_curved: bool):
 	if is_curved:
 		var center_point = position.lerp(desired_position, 0.5) + Vector3(0, 7, 0)
-		tween_me(desired_position, 0.3, center_point)
+		tween_me(desired_position, 0.4, center_point, 2)
 	else:
 		#print("This shouldnt happen")
 		tween_me(desired_position, 0.2)
@@ -223,14 +223,14 @@ func _on_area_3d_mouse_entered() -> void:
 			await Signalbus.actions_finished
 			
 		if is_mouse_over: #so the coin hovers back up instantly after unlocking input
-			tween_me(position_markers.get("floating"), 0.1, Vector3(0,0,0), Vector3(0,0,0), coin_mesh)
+			tween_me(position_markers.get("floating"), 0.1, Vector3(0,0,0), 0, Vector3(0,0,0), coin_mesh)
 			toggle_visible(true)
 	
 func _on_area_3d_mouse_exited() -> void:
 	is_mouse_over = false
 	toggle_visible(false)
 	if current_state == Constants.DisplayType.PLAY:
-		tween_me(position_markers.get("not_floating"), 0.2, Vector3(0,0,0), Vector3(0,0,0), coin_mesh)
+		tween_me(position_markers.get("not_floating"), 0.2, Vector3(0,0,0), 0, Vector3(0,0,0), coin_mesh)
 
 func _input(event: InputEvent) -> void:
 	if is_mouse_over and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and not Globals.input_locked:
@@ -248,7 +248,7 @@ func _input(event: InputEvent) -> void:
 	#var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	#tween.tween_property(sprite, "position", pos, time)
 
-func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, start: Vector3 = Vector3.ZERO, sprite: Node3D = self):
+func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, flip_count: int = 0, start: Vector3 = Vector3.ZERO, sprite: Node3D = self):
 	if sprite.position.is_equal_approx(end):
 		return
 	#uses the objects current position by default
@@ -265,6 +265,17 @@ func tween_me(end: Vector3, time: float = .1, control: Vector3 = Vector3.ZERO, s
 			sprite.position = a.lerp(b, t),
 		0.0, 1.0, time
 	)
+
+	if flip_count > 0:
+		var travel_dir = (end - start).normalized()
+		var flip_axis = travel_dir.cross(Vector3.UP).normalized()
+		
+		var flip_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
+		flip_tween.tween_method(
+			func(t: float):
+				sprite.transform.basis = Basis(flip_axis, t * TAU * flip_count),
+			0.0, 1.0, time * 0.7 #0.7 so the coin finishes flipping before landing
+		)
 
 
 func replace_me():

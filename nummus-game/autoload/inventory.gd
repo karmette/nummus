@@ -81,9 +81,8 @@ func new_hand():
 		Signalbus.calculate_coin_spacing.emit(current_hand.size(), true)
 		
 		current_hand[i].tween_pos(coin_positions[i], true)
-		
 		GuiManager.refresh_purse_ui()
-		await get_tree().create_timer(.1).timeout
+		await get_tree().create_timer(.15).timeout
 	Globals.action_finished()
 	#Signalbus.fly_out.emit()
 	
