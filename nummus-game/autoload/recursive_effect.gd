@@ -38,6 +38,8 @@ func run_weight_effects():
 		GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		await get_tree().create_timer(0.5).timeout
 
+	await get_tree().create_timer(0.5).timeout
+
 # func run_recurring_effect(stats: Dictionary, state: int):
 # 	for effect in weight_effects:
 # 		if effect.period_length == 0:

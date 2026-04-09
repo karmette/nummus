@@ -15,7 +15,7 @@ var coin_spawnpoint: Vector3
 
 var mint_busy: bool = false
 var mint_movement_queue: Array[Mint] = []
-var mint_tween_duration: float = .4
+var mint_tween_duration: float = .3
 var mint_arc_height: Vector3 = Vector3(0,5,0)
 
 @export var mint_positions: Array[Vector3] = []
@@ -71,15 +71,10 @@ func reset_mint_positions():
 func spawn_coins():
 	calculate_mint_spacing()
 	for i in range(Inventory.mints.size()):
-		if Inventory.mints[i] != null:
-			SceneManager.current_scene.add_child.call_deferred(Inventory.mints[i])
+		SceneManager.current_scene.add_child.call_deferred(Inventory.mints[i])
 	reset_mint_positions()
 	
 	await get_tree().create_timer(1).timeout 
-	
-	for i in range(Inventory.mints.size()):
-		if Inventory.mints[i] != null:
-			queue_mint_movement(Inventory.mints[i])
 
 func queue_mint_movement(mint: Mint):
 	mint_movement_queue.append(mint)

@@ -13,7 +13,7 @@ func _ready():
 	Signalbus.trigger_camera_coin_follow.connect(follow_flip)
 
 func trigger_shake(max: float, fade: float) -> void:
-	max_shake += max
+	max_shake = max
 	shake_fade = fade
 	_shake_strength = max_shake
 

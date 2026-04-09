@@ -9,7 +9,6 @@ func force_run_effect():
 	effect.call(value)
 
 func try_run_effect():
-	print(effect, value)
 	if conditional():
 		effect.call(value)
 
