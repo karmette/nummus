@@ -8,7 +8,7 @@ var weight_modifiers: Array[Object] = []
 var table_handler_node
 
 func add_recurring_effect(function: Callable, period_length: int):
-	if function.get_object() == CommonEffects.WeightModifier:
+	if function.get_object() == WeightModifier:
 		weight_effects.append(RecursiveEffectObject.new(function, period_length))
 	else:
 		effects[function] = period_length

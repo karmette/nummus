@@ -16,6 +16,9 @@ sky_material = SubResource("ProceduralSkyMaterial_hxjiy")
 
 [sub_resource type="Environment" id="Environment_ya44s"]
 sky = SubResource("Sky_036b0")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.3
 tonemap_mode = 2
 glow_enabled = true
 
@@ -24,11 +27,6 @@ script = ExtResource("1_0nd36")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ya44s")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.74337864, -0.5792593, 0.33443534, 0.22770296, 0.68929785, 0.6877644, -0.62891954, -0.4351174, 0.6443083, 0, 3.9246154, 2.2999923)
-light_energy = 4.154
-light_specular = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9997187, 0.023716785, 0, -0.023716785, 0.9997187, 0, 1.9803946, -1.1122167)
@@ -52,15 +50,15 @@ mesh = ExtResource("3_duxtl")
 skeleton = NodePath("../..")
 
 [node name="Shopkeeper" parent="." instance=ExtResource("4_qyrai")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5582032, 1.8028202, -3.9652872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9302294, 1.8028202, -3.9652872)
 
 [node name="ShopShelf" parent="." instance=ExtResource("5_d6rc8")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.6964942, 2.1363757, -4.366078)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5.410792, -3.3680983)
-light_energy = 14.168
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.3444736, 6.6913915, -2.7470956)
+light_color = Color(0.5904459, 0.579183, 0, 1)
+light_energy = 0.441
 spot_range = 6.368
+spot_attenuation = -2.33
 spot_angle = 33.86

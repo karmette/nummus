@@ -9,10 +9,12 @@ func _ready() -> void:
 	current_stage = 0
 	current_level  = LEVEL_PROGRESSION[0]
 	# we're just gonna give the player his first coins here okay
-	for i in range(4):
+	Inventory.add_coin(Constants.COINS.happy)
+
+	for i in range(2):
 		Inventory.add_coin(Constants.COINS.base)
 	
-	for i in range(4):
+	for i in range(2):
 		Inventory.add_coin(Constants.COINS.guard)
 	
 func next_stage():

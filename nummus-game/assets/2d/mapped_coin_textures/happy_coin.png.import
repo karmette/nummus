@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gqoqnrd6gb86"
-path.s3tc="res://.godot/imported/happy_coin.png-df9a2619a8f7e9eb67520b3a7c226609.s3tc.ctex"
+path="res://.godot/imported/happy_coin.png-df9a2619a8f7e9eb67520b3a7c226609.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/2d/mapped_coin_textures/happy_coin.png"
-dest_files=["res://.godot/imported/happy_coin.png-df9a2619a8f7e9eb67520b3a7c226609.s3tc.ctex"]
+dest_files=["res://.godot/imported/happy_coin.png-df9a2619a8f7e9eb67520b3a7c226609.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

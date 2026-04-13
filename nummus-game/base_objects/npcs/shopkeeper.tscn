@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh6iucofsqx83"]
+[gd_scene load_steps=14 format=3 uid="uid://bh6iucofsqx83"]
 
 [ext_resource type="Script" uid="uid://cj4onfl034kox" path="res://base_objects/npcs/shopkeeper.gd" id="1_d1nhg"]
 [ext_resource type="Texture2D" uid="uid://cditkhfq8p0fa" path="res://assets/2d/character_sprites/shopkeeper-Sheet.png" id="1_qcdo4"]
+[ext_resource type="Texture2D" uid="uid://oydm4bxteeau" path="res://assets/2d/character_sprites/shopkeeper.png" id="3_rgsb4"]
 
 [sub_resource type="Animation" id="Animation_7frlh"]
 length = 0.001
@@ -41,8 +42,8 @@ region = Rect2(256, 0, 256, 256)
 atlas = ExtResource("1_qcdo4")
 region = Rect2(0, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qwyms"]
-atlas = ExtResource("1_qcdo4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2akyu"]
+atlas = ExtResource("3_rgsb4")
 region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ab7hm"]
@@ -81,7 +82,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qwyms")
+"texture": SubResource("AtlasTexture_2akyu")
 }],
 "loop": true,
 "name": &"neutral",
@@ -115,6 +116,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06553895, 0)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_cqvnp")
 animation = &"neutral"

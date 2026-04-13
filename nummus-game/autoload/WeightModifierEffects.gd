@@ -1,12 +1,11 @@
 # weight_modifier.gd
 class_name WeightModifier
-extends RefCounted
 # by being its own script we can check what type of effect an effect is
 # we can check that favor_heads is a WeightModifier
 
-func favor_heads(val: float):
+static func favor_heads(val: float):
 	inc_favor(val, -val)
-func favor_tails(val: float):
+static func favor_tails(val: float):
 	inc_favor(-val, val)
 static func inc_favor(head: float = 0, tail: float = 0):
 	Globals.head_weight += head
