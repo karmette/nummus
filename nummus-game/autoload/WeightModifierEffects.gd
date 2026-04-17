@@ -16,7 +16,7 @@ static func set_favor(head: float = 0.5, tail: float = 0.5):
 static func mult_favor(head: float = 1, tail: float = 1):
 	Globals.head_weight *= head
 	Globals.tail_weight *= tail
-func favor_success(val: float):
+static func favor_success(val: float):
 	if Globals.chosen_state == Sides.HEADS:
 		favor_heads(val)
 	elif Globals.chosen_state == Sides.TAILS:

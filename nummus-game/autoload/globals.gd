@@ -115,16 +115,16 @@ func reset_weights():
 func use_fortune():
 	if fortune >= 20:
 		fortune -= 20
-		CommonEffects.WeightModifier.set_favor(1,0)
+		WeightModifier.set_favor(1,0)
 	elif fortune >= 12:
 		fortune -= 12
-		CommonEffects.WeightModifier.favor_success(.2)
+		WeightModifier.favor_success(.2)
 	elif fortune >= 8:
 		fortune -= 8
-		CommonEffects.WeightModifier.favor_success(.15)
+		WeightModifier.favor_success(.15)
 	elif fortune >= 4:
 		fortune -= 4
-		CommonEffects.WeightModifier.favor_success(.1)
+		WeightModifier.favor_success(.1)
 	
 	GuiManager.update_fortune_bar_ui.emit()
 	GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)

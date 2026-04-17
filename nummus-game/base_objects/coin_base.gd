@@ -206,7 +206,7 @@ func get_stat_line(type: String, value: int):
 	return "[color=light_blue]" + str(value) + " " + type + "[/color][br]"
 
 
-func toggle_visible(on: bool):
+func toggle_description(on: bool):
 	if on:
 		hoverable.animation.play("fly_out")
 	else:
@@ -216,18 +216,18 @@ func toggle_visible(on: bool):
 func _on_area_3d_mouse_entered() -> void:
 	is_mouse_over = true
 	if current_state == Constants.DisplayType.SHOP:
-		toggle_visible(true)
+		toggle_description(true)
 	if current_state == Constants.DisplayType.PLAY: # make float
 		if Globals.input_locked:
 			await Signalbus.actions_finished
 			
 		if is_mouse_over: #so the coin hovers back up instantly after unlocking input
 			tween_me(position_markers.get("floating"), 0.1, Vector3(0,0,0), 0, Vector3(0,0,0), coin_mesh)
-			toggle_visible(true)
+			toggle_description(true)
 	
 func _on_area_3d_mouse_exited() -> void:
 	is_mouse_over = false
-	toggle_visible(false)
+	toggle_description(false)
 	if current_state == Constants.DisplayType.PLAY:
 		tween_me(position_markers.get("not_floating"), 0.2, Vector3(0,0,0), 0, Vector3(0,0,0), coin_mesh)
 

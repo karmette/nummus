@@ -11,10 +11,10 @@ func _ready() -> void:
 	# we're just gonna give the player his first coins here okay
 	Inventory.add_coin(Constants.COINS.happy)
 
-	for i in range(2):
+	for i in range(4):
 		Inventory.add_coin(Constants.COINS.base)
 	
-	for i in range(2):
+	for i in range(4):
 		Inventory.add_coin(Constants.COINS.guard)
 	
 func next_stage():
