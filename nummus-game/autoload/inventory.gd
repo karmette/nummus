@@ -5,14 +5,17 @@ extends Node
 var discard: Array[Coin]
 var current_inv: Array[Coin] = []
 var current_hand: Array[Coin] = []
-var mints: Array[Object] = []
+var mints: Array[Mint] = []
 
 signal inventory_changed()
 signal replace_current_coin()
 
 var current_coin: Coin
 
+var active_mints: Array[Mint] = [] #MINTS PHYSICALLY EXISTING IN SCENE
+
 func _ready() -> void:
+	Signalbus.fire_game.connect(fire_game)
 	add_mint(Constants.MINTS.dizzy)
 	add_mint(Constants.MINTS.waggy)
 	add_mint(Constants.MINTS.dizzy)

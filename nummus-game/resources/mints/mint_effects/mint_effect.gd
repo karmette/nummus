@@ -14,3 +14,4 @@ func try_run_effect():
 
 func conditional(): #default condition always returns true
 	return true
+

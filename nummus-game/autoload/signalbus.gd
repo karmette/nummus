@@ -12,6 +12,8 @@ signal scene_changed()
 signal current_enemy_defeated()
 @warning_ignore("unused_signal")
 signal level_loaded
+@warning_ignore("unused_signal")
+signal fire_game
 
 ######## Change Values ########
 @warning_ignore("unused_signal")
@@ -43,11 +45,13 @@ signal decrease_period(amount: int)
 @warning_ignore("unused_signal")
 signal calculate_coin_spacing(hand: int, is_new_hand: bool)
 @warning_ignore("unused_signal")
+signal queue_mint_movement(mint: Mint)
 
 signal actions_finished
 @warning_ignore("unused_signal")
 signal coin_stamped #signals that a mint has stamped a coin
 
+#coin stuff for moving in scene
 @warning_ignore("unused_signal")
 signal move_drawn_coin(coin: Coin)
 @warning_ignore("unused_signal")

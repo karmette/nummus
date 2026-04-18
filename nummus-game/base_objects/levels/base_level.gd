@@ -5,8 +5,7 @@ var flipping_history: PackedInt32Array = []
 var amount_skipped: int = 0
 
 func _ready() -> void:
-	Inventory.fire_game()
-	#Inventory.spawn_hand()
+	Signalbus.fire_game.emit()
 	ObjectManager.spawn_base_enemy()
 	Signalbus.current_enemy_defeated.connect(_on_current_enemy_defeated)
 	GuiManager.toggle_level_completed_ui.emit(false)

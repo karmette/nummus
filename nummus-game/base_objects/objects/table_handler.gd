@@ -35,8 +35,10 @@ func _ready() -> void:
 	Signalbus.move_drawn_coin.connect(move_drawn_coin)
 	Signalbus.move_coins_in_hand.connect(move_coins_in_hand)
 	Signalbus.move_discarded_coin.connect(move_discarded_coin)
-	RecursiveEffect.table_handler_node = self
-	spawn_mints()
+
+	Signalbus.queue_mint_movement.connect(queue_mint_movement)
+
+	Signalbus.fire_game.connect(spawn_mints)
 
 ### COINS ###
 func calculate_coin_spacing(hand_size: int, is_new_hand: bool = true):
@@ -112,8 +114,10 @@ func reset_mint_positions():
 func spawn_mints():
 	calculate_mint_spacing()
 	for i in range(Inventory.mints.size()):
-		SceneManager.current_scene.add_child.call_deferred(Inventory.mints[i])
-	reset_mint_positions()
+		var new_mint: Mint = Inventory.mints[i].duplicate()
+		Inventory.active_mints.append(new_mint)
+		new_mint.position = mint_positions[i]
+		SceneManager.current_scene.add_child.call_deferred(new_mint)
 
 func queue_mint_movement(mint: Mint):
 	mint_movement_queue.append(mint)

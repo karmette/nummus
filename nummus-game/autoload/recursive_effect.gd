@@ -5,8 +5,6 @@ var weight_effects: Array[Object] = []
 var mint_weight_effects: Array[Object] = []
 var weight_modifiers: Array[Object] = []
 
-var table_handler_node
-
 func add_recurring_effect(function: Callable, period_length: int):
 	if function.get_object() == WeightModifier:
 		weight_effects.append(RecursiveEffectObject.new(function, period_length))
@@ -25,10 +23,10 @@ func run_weight_effects():
 		GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
 		await get_tree().create_timer(0.5).timeout
 		
-	for i in range(Inventory.mints.size()):
-		var current_mint = Inventory.mints[i]
+	for i in range(Inventory.active_mints.size()):
+		var current_mint = Inventory.active_mints[i]
 		if current_mint.get_effect_type() == "WeightModifier":
-			table_handler_node.queue_mint_movement(current_mint)
+			Signalbus.queue_mint_movement.emit(current_mint)
 			await Signalbus.coin_stamped
 			current_mint.run_effect()
 			GuiManager.update_chance_wheel.emit(Globals.head_weight, Globals.tail_weight)
